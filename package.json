@@ -31,5 +31,29 @@
     "electron": "wait-on tcp:1234 && tsc && electron --trace-warnings .",
     "bundle": "yarn build && tsc && electron-builder"
   },
+  "build": {
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "./out"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "category": "Utility",
+      "target": "deb"
+    }
+  },
   "keywords": []
 }
