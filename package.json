@@ -1,9 +1,9 @@
 {
   "name": "react-open-cam-electron",
   "version": "1.0.0",
-  "main": "index.js",
   "author": "wachira_Dev <ewachira254@gmail.com>",
   "license": "MIT",
+  "main": "dist/index.js",
   "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.8",
@@ -26,7 +26,10 @@
   },
   "scripts": {
     "start": "parcel src/index.html --out-dir parcel-dist",
-    "build": "parcel build src/index.html --out-dir dist/parcel-build --public-url ./"
+    "build": "parcel build src/index.html --out-dir dist/parcel-build --public-url ./",
+    "dev": "concurrently -k \"yarn start\" \"yarn:electron\"",
+    "electron": "wait-on tcp:1234 && tsc && electron --trace-warnings .",
+    "bundle": "yarn build && tsc && electron-builder"
   },
   "keywords": []
 }
