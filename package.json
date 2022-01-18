@@ -1,0 +1,32 @@
+{
+  "name": "react-open-cam-electron",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "wachira_Dev <ewachira254@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.8",
+    "@babel/preset-react": "^7.16.7",
+    "@parcel/transformer-typescript-tsc": "^2.2.1",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "concurrently": "^7.0.0",
+    "electron": "^16.0.7",
+    "electron-builder": "^22.14.5",
+    "parcel-bundler": "^1.12.5",
+    "typescript": "^4.5.4",
+    "wait-on": "^6.0.0"
+  },
+  "dependencies": {
+    "electron-is-dev": "^2.0.0",
+    "electron-serve": "^1.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "scripts": {
+    "start": "parcel src/index.html --out-dir parcel-dist",
+    "build": "parcel build src/index.html --out-dir dist/parcel-build --public-url ./"
+  },
+  "keywords": []
+}
