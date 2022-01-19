@@ -3,33 +3,45 @@
   "version": "1.0.0",
   "author": "wachira_Dev <ewachira254@gmail.com>",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "packages/main/dist/index.js",
   "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.8",
     "@babel/preset-react": "^7.16.7",
     "@parcel/transformer-typescript-tsc": "^2.2.1",
+    "@types/node": "^17.0.10",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
     "concurrently": "^7.0.0",
+    "cross-env": "^7.0.3",
     "electron": "^16.0.7",
     "electron-builder": "^22.14.5",
+    "eslint": "^8.7.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-react": "^7.28.0",
     "parcel-bundler": "^1.12.5",
     "typescript": "^4.5.4",
     "wait-on": "^6.0.0"
   },
   "dependencies": {
+    "electron-devtools-installer": "^3.2.0",
     "electron-is-dev": "^2.0.0",
     "electron-serve": "^1.1.0",
+    "electron-updater": "^4.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "scripts": {
-    "start": "parcel src/index.html --out-dir parcel-dist",
-    "build": "parcel build src/index.html --out-dir dist/parcel-build --public-url ./",
-    "dev": "concurrently -k \"yarn start\" \"yarn:electron\"",
-    "electron": "wait-on tcp:1234 && tsc && electron --trace-warnings .",
-    "bundle": "yarn build && tsc && electron-builder"
+    "start": "parcel packages/renderer/src/index.html --out-dir packages/renderer/dist",
+    "build:renderer": "parcel build packages/renderer/src/index.html --out-dir packages/renderer/dist --public-url ./",
+    "build:preload": "cd ./packages/preload && tsc --target es5 ",
+    "build:main": "cd ./packages/main && tsc --target es5",
+    "build": "yarn build:main && yarn build:preload && yarn build:renderer",
+    "compile": "cross-env MODE=production yarn build && electron-builder build --config .electron-builder.config.js --dir",
+    "dev": "yarn build:renderer && yarn build:main && yarn build:preload && concurrently -k \"yarn start\" \"yarn:electron\"",
+    "electron": "wait-on tcp:1234 && tsc && APP_DEV=true electron --trace-warnings --disable-gpu ."
   },
   "build": {
     "files": [
