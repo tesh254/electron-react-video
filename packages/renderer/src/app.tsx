@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import React from 'react';
 
 const App: React.FC<{}> = () => {
   const [canShowVideo, setCanShowVideo] = React.useState(false);
@@ -12,16 +13,14 @@ const App: React.FC<{}> = () => {
         setCanShowVideo(true);
         setToggleVideo(true);
         // @ts-ignore
-        document.getElementById("video").srcObject = res;
+        document.getElementById('video').srcObject = res;
       })
       .catch((err) => {
         setCanShowVideo(false);
-        alert("Could not access webcam");
+        alert('Could not access webcam');
       });
   }
-
-  React.useEffect(() => {}, []);
-
+  
   return (
     <>
       <button
@@ -33,7 +32,7 @@ const App: React.FC<{}> = () => {
           }
         }}
       >
-        {toggleVideo ? "Hide Video" : "Show Video"}
+        {toggleVideo ? 'Hide Video' : 'Show Video'}
       </button>
       <section>
         {!canShowVideo ? null : canShowVideo && toggleVideo ? (
